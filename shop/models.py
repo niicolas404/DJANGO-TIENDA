@@ -12,3 +12,7 @@ class producto(models.Model):
 
     def __str__(self) -> str:
         return self.nombre
+
+    @property
+    def precio_formateado(self):
+        return f"${self.precio:,.0f}".replace(',', '.')

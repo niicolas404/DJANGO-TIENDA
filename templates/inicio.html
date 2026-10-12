@@ -53,7 +53,7 @@
 								</div>
 								<p class="product-description">{{ producto.descripcion|default:"Un producto especial de nuestra tienda." }}</p>
 								<div class="product-meta">
-									<span class="price">${{ producto.precio }}</span>
+									<span class="price">{{ producto.precio_formateado }}</span>
 									<span class="stock-count">{{ producto.stock }} en stock</span>
 								</div>
 							</div>
