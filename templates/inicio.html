@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	{% load static %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#f7fbf5">
+	<title>Shop-Django | Tienda</title>
+	<link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+	<header class="site-header">
+		<a class="brand" href="{% url 'inicio' %}" aria-label="Shop-Django, inicio">
+			<span class="brand-mark" aria-hidden="true">S</span>
+			<span>SHOP-DJANGO</span>
+		</a>
+		<span class="header-note">Tu próxima compra favorita</span>
+	</header>
+
+	<main>
+		<section class="welcome" aria-labelledby="page-title">
+			<div class="welcome-copy">
+				<p class="eyebrow">HECHO PARA DESCUBRIR</p>
+				<h1 id="page-title">BIENVENIDOS A<br><span>SHOP-DJANGO</span></h1>
+				<p class="welcome-description">Encuentra algo que te encante. Explora nuestros productos.</p>
+			</div>
+			<div class="welcome-stamp" aria-hidden="true">
+				<span>BUENAS</span>
+				<strong>COMPRAS</strong>
+				<span>EMPIEZAN AQUÍ</span>
+			</div>
+		</section>
+
+		<section class="catalog" aria-labelledby="catalog-title">
+			<div class="section-heading">
+				<div>
+					<p class="eyebrow">SELECCIÓN DE LA TIENDA</p>
+					<h2 id="catalog-title">Nuestros productos</h2>
+				</div>
+				<span class="product-count">{{ productos|length }} productos</span>
+			</div>
+
+			{% if productos %}
+				<div class="product-grid">
+					{% for producto in productos %}
+						{% cycle "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85" "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85" "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85" as imagen_respaldo silent %}
+						<article class="product-card">
+							<img class="product-image" src="{% if producto.imagen_url %}{{ producto.imagen_url }}{% else %}{{ imagen_respaldo }}{% endif %}" alt="Imagen de {{ producto.nombre }}" loading="lazy">
+							<div class="product-details">
+								<div class="product-title-row">
+									<h3>{{ producto.nombre }}</h3>
+									<span class="stock-tag">{% if producto.stock > 0 %}Disponible{% else %}Agotado{% endif %}</span>
+								</div>
+								<p class="product-description">{{ producto.descripcion|default:"Un producto especial de nuestra tienda." }}</p>
+								<div class="product-meta">
+									<span class="price">${{ producto.precio }}</span>
+									<span class="stock-count">{{ producto.stock }} en stock</span>
+								</div>
+							</div>
+						</article>
+					{% endfor %}
+				</div>
+			{% else %}
+				<div class="empty-state">
+					<span class="empty-mark" aria-hidden="true">+</span>
+					<h3>Pronto habrá novedades</h3>
+					<p>Estamos preparando los productos para nuestra tienda.</p>
+				</div>
+			{% endif %}
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<span>SHOP-DJANGO</span>
+		<p>todos los derechos reservados, 2026</p>
+		<span class="footer-dot" aria-hidden="true"></span>
+	</footer>
+</body>
+</html>

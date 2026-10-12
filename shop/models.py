@@ -5,6 +5,7 @@ from django.db import models
 class producto(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
     descripcion = models.TextField()
+    imagen_url = models.URLField('URL de imagen', blank=True, help_text='Pega una URL pública de la imagen del producto.')
     precio = models.PositiveIntegerField()
     stock = models.PositiveSmallIntegerField()
     fecha_creacion = models.DateTimeField()

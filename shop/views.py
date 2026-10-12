@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from .models import producto
 
-# Create your views here.
+
+def inicio(request):
+	productos = producto.objects.all().order_by('nombre')
+	return render(request, 'inicio.html', {'productos': productos})
